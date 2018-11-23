@@ -14,13 +14,15 @@
 
 
 
+
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 Auth::routes();
 
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-history']], function() {
+    Route::get('/', 'HomeController@index')->name('home');
     Route::resource('roles','RoleController');
     Route::resource('permissions','PermissionController');
     Route::resource('users','UserController');
