@@ -30,4 +30,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    public function sites()
+    {
+        return $this->belongsToMany('App\Entities\Site','user_site', 'user_id', 'site_id');
+    }
 }

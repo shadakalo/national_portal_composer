@@ -6,10 +6,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
 use Hash;
+
+use App\Entities\Site;
 
 
 class UserController extends Controller
@@ -30,6 +33,7 @@ class UserController extends Controller
 
         //$user=auth()->user();
         //$user=User::find(1);
+       // $site=Site::find(14);
         //$user->syncPermissions(['product-list', 'product-edit']);
        // $user->givePermissionTo('product-create');
         //$user->revokePermissionTo('product-edit');
@@ -47,6 +51,30 @@ class UserController extends Controller
 
 
 
+   /*       $product = new Product;
+        $product->name = 'God of War';
+        $product->price = 40;
+
+        $product->save();*/
+
+
+
+        /*many to many*/
+
+       /* $site = Site::find(14);
+        $user = User::find([1, 2, 4]);
+        $site->users()->sync($user);*/
+
+
+      /*  $user = User::find(1);
+        $site = Site::find([22, 23]);
+        $user->sites()->sync($site);
+
+         dd($site);
+         exit();*/
+
+         //$site->users()->sync([1, 2]);
+        // $site->users()->attach(1);
 
          
 

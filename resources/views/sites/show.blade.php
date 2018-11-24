@@ -26,7 +26,14 @@
             <strong>Site Bangla Slogan:</strong>
             {{ $site->site_slogan_bn }} </br>
             <strong>Site English Slogan:</strong>
-            {{ $site->site_slogan_en }}
+            {{ $site->site_slogan_en }}<br>
+            <strong>Site Users:</strong>
+            @foreach($site->users as $user)
+               {{ $user->name }},
+            @endforeach
+            <br>
+            <strong>Site's Cluster:</strong>
+             {{ $site->clusterInfo->cluster_ip }}
         </div>
     </div>
 

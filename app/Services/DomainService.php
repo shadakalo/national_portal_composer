@@ -2,17 +2,17 @@
 
 namespace App\Services;
 
-use App\Repositories\SiteRepository;
-use App\Validators\SiteValidator;
+use App\Repositories\DomainRepository;
+use App\Validators\DomainValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
 
-class SiteService
+class DomainService
 {
 	private $repository;
 	private $validator;
 
-	public function __construct(SiteRepository $repository, SiteValidator $validator)
+	public function __construct(DomainRepository $repository, DomainValidator $validator)
 	{
 		$this->repository 	= $repository;
 		$this->validator 	= $validator;
@@ -31,21 +31,14 @@ class SiteService
 	{
 		try
 		{
-
-
-			/*dd($data['user']);
-			exit();*/
-			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-			$site = $this->repository->create($data);
+            
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
+			$domain = $this->repository->create($data);
 			
-			if(!empty($data['user'])) { 
-			   $site->users()->sync($data['user']);
-		    }
-
 			return [
 				'success' 	=> true,
-				'messages' 	=> "Site created successfully.",
-				'data' 	  	=> $site,
+				'messages' 	=> "Domain created successfully.",
+				'data' 	  	=> $domain,
 			];
 		}
 		catch(Exception $e)
@@ -71,18 +64,12 @@ class SiteService
 		try
 		{
 			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
-			$site = $this->repository->update($data, $id);
-
-            $site->users()->detach();
-
-            if(!empty($data['user'])) { 
-			   $site->users()->sync($data['user']);
-		    }
+			$domain = $this->repository->update($data, $id);
 
 			return [
 				'success' 	=> true,
-				'messages' 	=> "Site updated successfully.",
-				'data' 	  	=> $site,
+				'messages' 	=> "Domain updated successfully.",
+				'data' 	  	=> $domain,
 			];
 		}
 		catch(Exception $e)
@@ -103,13 +90,13 @@ class SiteService
         try
 		{
 			
-			$site = $this->repository->find($id);
-			$site->delete();
-            $site->users()->detach();
+			$domain = $this->repository->find($id);
+			$domain->delete();
+           
 			return [
 				'success' 	=> true,
-				'messages' 	=> "Site deleted successfully.",
-				'data' 	  	=> $site,
+				'messages' 	=> "Domain deleted successfully.",
+				'data' 	  	=> $domain,
 			];
 		}
 		catch(Exception $e)

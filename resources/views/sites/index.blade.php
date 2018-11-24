@@ -32,6 +32,8 @@
      <th>Site Bangla Name</th>
      <th>Site English Name</th>
      <th>Site Email</th>
+     <th>Site's User</th>
+     <th>Site's Cluster</th>
      <th width="280px">Action</th>
   </tr>
     @foreach ($sites as $key=>$site)
@@ -40,6 +42,16 @@
         <td>{{ $site->sitename_bn }}</td>
         <td>{{ $site->sitename_en }}</td>
         <td>{{ $site->site_email }}</td>
+        <td>
+            @foreach($site->users as $user)
+               {{ $user->name }},
+            @endforeach
+        </td>
+        <td>
+         
+            {{ $site->clusterInfo->cluster_ip }}
+          
+        </td>
         <td>
             <a class="btn btn-info" href="{{ route('sites.show',$site->id) }}">Show</a>
             @can('role-edit')

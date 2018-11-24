@@ -4,25 +4,20 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\SiteRepository;
-use App\Entities\Site;
-use App\Validators\SiteValidator;
+use App\Repositories\DomainRepository;
+use App\Entities\Domain;
+use App\Validators\DomainValidator;
 
 /**
- * Class SiteRepositoryEloquent.
+ * Class DomainRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class SiteRepositoryEloquent extends BaseRepository implements SiteRepository
+class DomainRepositoryEloquent extends BaseRepository implements DomainRepository
 {
-   
+    
 
-    public function selectBoxList(string $descricao = 'sitename_bn', string $chave = 'id')
-    {
-        return $this->model->pluck($descricao, $chave)->all();
-    }
-
-
+  
     /**
      * Specify Model class name
      *
@@ -30,7 +25,7 @@ class SiteRepositoryEloquent extends BaseRepository implements SiteRepository
      */
     public function model()
     {
-        return Site::class;
+        return Domain::class;
     }
 
     /**
@@ -41,7 +36,7 @@ class SiteRepositoryEloquent extends BaseRepository implements SiteRepository
     public function validator()
     {
 
-        return SiteValidator::class;
+        return DomainValidator::class;
     }
 
 

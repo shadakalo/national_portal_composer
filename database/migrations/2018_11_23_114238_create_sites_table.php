@@ -22,6 +22,7 @@ class CreateSitesTable extends Migration
             $table->string('site_email');
             $table->string('site_slogan_bn');
             $table->string('site_slogan_en');
+            $table->string('cluster_id');
             $table->timestamps();
 		});
 	}

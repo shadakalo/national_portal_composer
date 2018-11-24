@@ -4,24 +4,23 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\SiteRepository;
-use App\Entities\Site;
-use App\Validators\SiteValidator;
+use App\Repositories\ClusterInfoRepository;
+use App\Entities\ClusterInfo;
+use App\Validators\ClusterInfoValidator;
 
 /**
- * Class SiteRepositoryEloquent.
+ * Class ClusterInfoRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class SiteRepositoryEloquent extends BaseRepository implements SiteRepository
+class ClusterInfoRepositoryEloquent extends BaseRepository implements ClusterInfoRepository
 {
-   
+    
 
-    public function selectBoxList(string $descricao = 'sitename_bn', string $chave = 'id')
+    public function selectBoxList(string $descricao = 'cluster_ip', string $chave = 'id')
     {
         return $this->model->pluck($descricao, $chave)->all();
     }
-
 
     /**
      * Specify Model class name
@@ -30,7 +29,7 @@ class SiteRepositoryEloquent extends BaseRepository implements SiteRepository
      */
     public function model()
     {
-        return Site::class;
+        return ClusterInfo::class;
     }
 
     /**
@@ -41,7 +40,7 @@ class SiteRepositoryEloquent extends BaseRepository implements SiteRepository
     public function validator()
     {
 
-        return SiteValidator::class;
+        return ClusterInfoValidator::class;
     }
 
 

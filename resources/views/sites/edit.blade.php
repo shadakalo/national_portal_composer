@@ -58,6 +58,32 @@
             {!! Form::text('site_slogan_en', null, array('placeholder' => 'Site english Slogan','class' => 'form-control')) !!}
         </div>
     </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Users:</strong>
+            <br/>
+            @foreach($users as $value)
+                <label>{{ Form::checkbox('user[]', $value->id, in_array($value->id, $siteUser) ? true : false, array('class' => 'name')) }}
+                {{ $value->name }}</label>
+            <br/>
+            @endforeach
+        </div>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Cluster ID:</strong>
+           
+            {!! Form::select('cluster_id', ['' => 'Select Cluster'] +$clusterInfo_list,[$site->id], array('class' => 'form-control')) !!}
+
+             
+           
+        </div>
+    </div>
+
+
    
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
         <button type="submit" class="btn btn-primary">Submit</button>
