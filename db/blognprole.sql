@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 25, 2018 at 05:19 PM
+-- Generation Time: Nov 25, 2018 at 09:23 PM
 -- Server version: 5.7.24-0ubuntu0.16.04.1
 -- PHP Version: 7.2.9-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -91,7 +91,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2018_11_23_114238_create_sites_table', 3),
 (7, '2018_11_23_181430_create_user_site_table', 4),
 (8, '2018_11_24_053744_create_domains_table', 5),
-(9, '2018_11_24_093917_create_cluster_infos_table', 6);
+(9, '2018_11_24_093917_create_cluster_infos_table', 6),
+(10, '2016_06_01_000001_create_oauth_auth_codes_table', 7),
+(11, '2016_06_01_000002_create_oauth_access_tokens_table', 7),
+(12, '2016_06_01_000003_create_oauth_refresh_tokens_table', 7),
+(13, '2016_06_01_000004_create_oauth_clients_table', 7),
+(14, '2016_06_01_000005_create_oauth_personal_access_clients_table', 7);
 
 -- --------------------------------------------------------
 
@@ -127,7 +132,104 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\User', 2),
 (2, 'App\\User', 4),
 (1, 'App\\User', 7),
-(1, 'App\\User', 11);
+(1, 'App\\User', 11),
+(1, 'App\\User', 14),
+(1, 'App\\User', 15),
+(1, 'App\\User', 16),
+(1, 'App\\User', 17);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_access_tokens`
+--
+
+CREATE TABLE `oauth_access_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `client_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_auth_codes`
+--
+
+CREATE TABLE `oauth_auth_codes` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_clients`
+--
+
+CREATE TABLE `oauth_clients` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `personal_access_client` tinyint(1) NOT NULL,
+  `password_client` tinyint(1) NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `oauth_clients`
+--
+
+INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Laravel Personal Access Client', 'mSS6LftSXE9rTB15IFgdhdsUwvfDeFO7GSmmpXPX', 'http://localhost', 1, 0, 0, '2018-11-25 13:35:21', '2018-11-25 13:35:21'),
+(2, NULL, 'Laravel Password Grant Client', 'e3v8BaBmSJwlBfRb0skWzq5eyuyouEIts3ZLQOtJ', 'http://localhost', 0, 1, 0, '2018-11-25 13:35:21', '2018-11-25 13:35:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_personal_access_clients`
+--
+
+CREATE TABLE `oauth_personal_access_clients` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `oauth_personal_access_clients`
+--
+
+INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2018-11-25 13:35:21', '2018-11-25 13:35:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_refresh_tokens`
+--
+
+CREATE TABLE `oauth_refresh_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -286,9 +388,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'karim', 'karim@gmail.com', NULL, '$2y$10$4Ts6o22AOiF36b5oisdGGO/Yqy03apWI/0D0gznFf1boMKIIhRzaq', 'SlueiCZJGiDnCtwC0XPxh6K0cijMTqWhWXvbZ9IULGrFsHErrQOHkQOrnfpc', '2018-11-22 09:21:57', '2018-11-22 09:44:04'),
+(1, 'karim', 'karim@gmail.com', NULL, '$2y$10$4Ts6o22AOiF36b5oisdGGO/Yqy03apWI/0D0gznFf1boMKIIhRzaq', '83fd6XSQvi5NdaY4WOTbv81yGI5AT0V4KwOZpom0KkWaJzxHMsQ7JQGLDG2P', '2018-11-22 09:21:57', '2018-11-22 09:44:04'),
 (2, 'rahim', 'rahim@gmail.com', NULL, '$2y$10$lx36/1zys9QtPvrlt8ARl.ynYxP6PMLiGLXoVaaEwh4Q8hFJXo6uC', 'Uw778pTPyw7hk6uJNxedUZJ1nSkw0litcBd23CRVdSbE3LAKRd1oWH47m2If', '2018-11-22 09:45:58', '2018-11-22 09:45:58'),
-(4, 'fatama', 'fatama@gmail.com', NULL, '$2y$10$nSgubeKq7LP855Hw9whdWeW.GLBZVvoTr/DfTMweUncvPxjGF.5BC', NULL, '2018-11-22 11:53:10', '2018-11-22 11:53:10');
+(4, 'fatama', 'fatama@gmail.com', NULL, '$2y$10$nSgubeKq7LP855Hw9whdWeW.GLBZVvoTr/DfTMweUncvPxjGF.5BC', NULL, '2018-11-22 11:53:10', '2018-11-22 11:53:10'),
+(17, 'SUNIL CHANDRA', 'scandra36@gmail.com', NULL, '$2y$10$3mkWVE2fr0mUCk..tw381uPdqDMpAUVX2Xc2DPrth1h67nhO2c5DW', 'qQkr35Oo4oOqar9B5uoLbFoHeKCD6zWF8oruioTc6rV5GzYtZDwq3BR3oCHn', '2018-11-25 15:19:53', '2018-11-25 15:21:38');
 
 -- --------------------------------------------------------
 
@@ -350,6 +453,40 @@ ALTER TABLE `model_has_permissions`
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `oauth_access_tokens`
+--
+ALTER TABLE `oauth_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_access_tokens_user_id_index` (`user_id`);
+
+--
+-- Indexes for table `oauth_auth_codes`
+--
+ALTER TABLE `oauth_auth_codes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `oauth_clients`
+--
+ALTER TABLE `oauth_clients`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_clients_user_id_index` (`user_id`);
+
+--
+-- Indexes for table `oauth_personal_access_clients`
+--
+ALTER TABLE `oauth_personal_access_clients`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_personal_access_clients_client_id_index` (`client_id`);
+
+--
+-- Indexes for table `oauth_refresh_tokens`
+--
+ALTER TABLE `oauth_refresh_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -419,7 +556,17 @@ ALTER TABLE `domains`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `oauth_clients`
+--
+ALTER TABLE `oauth_clients`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `oauth_personal_access_clients`
+--
+ALTER TABLE `oauth_personal_access_clients`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -444,7 +591,7 @@ ALTER TABLE `sites`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `user_site`
 --
