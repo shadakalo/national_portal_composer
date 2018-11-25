@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Password;
+
 class RegisterController extends Controller
 {
     /*
@@ -21,7 +27,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers,SendsPasswordResetEmails;
 
     /**
      * Where to redirect users after registration.
@@ -46,11 +52,12 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -69,4 +76,26 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+
+     public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+
+        if(filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)){
+             //event(new Registered($user = $this->create($request->all())));
+             $user = $this->create($request->all());  
+             $this->sendResetLinkEmail($request);
+        }else{
+            $user = $this->create($request->all());  
+        }
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                      ?: redirect($this->redirectPath());
+    }
+
+
 }
