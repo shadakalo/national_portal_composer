@@ -15,8 +15,14 @@ use Hash;
 use App\Entities\Site;
 
 
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+//use Illuminate\Support\Facades\Password;
+
 class UserController extends Controller
 {
+
+
+    use SendsPasswordResetEmails;
     /**
      * Display a listing of the resource.
      *
@@ -106,17 +112,26 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'email' => 'required|unique:users,email',
+            'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
 
 
         $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+
+        $input = array_except($input,array('password'));  
+        //$input['password'] = Hash::make($input['password']);
+
+        if(filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)){
+           $user = User::create($input);
+           $this->sendResetLinkEmail($request);
+        }else{
+            //$user = $this->create($request->all());  
+            $user = User::create($request->all());  
+        }
 
 
-        $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
 
@@ -166,7 +181,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);

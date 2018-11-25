@@ -18,8 +18,7 @@
 Route::get('/', function () {
     return redirect()->route('login');
 });
-Auth::routes();
-
+Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-history']], function() {
     Route::get('/', 'HomeController@index')->name('home');

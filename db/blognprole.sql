@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 24, 2018 at 12:18 PM
+-- Generation Time: Nov 25, 2018 at 05:19 PM
 -- Server version: 5.7.24-0ubuntu0.16.04.1
 -- PHP Version: 7.2.9-1+ubuntu16.04.1+deb.sury.org+1
 
@@ -125,7 +125,9 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\User', 1),
 (1, 'App\\User', 2),
 (2, 'App\\User', 2),
-(2, 'App\\User', 4);
+(2, 'App\\User', 4),
+(1, 'App\\User', 7),
+(1, 'App\\User', 11);
 
 -- --------------------------------------------------------
 
@@ -273,7 +275,7 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -284,7 +286,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'karim', 'karim@gmail.com', NULL, '$2y$10$4Ts6o22AOiF36b5oisdGGO/Yqy03apWI/0D0gznFf1boMKIIhRzaq', 'GTGcMOiLZZys9dPCT8K0WmaKSzwMRuB4p0bwvuHBNEHejmfAKX5cawk2MXLI', '2018-11-22 09:21:57', '2018-11-22 09:44:04'),
+(1, 'karim', 'karim@gmail.com', NULL, '$2y$10$4Ts6o22AOiF36b5oisdGGO/Yqy03apWI/0D0gznFf1boMKIIhRzaq', 'SlueiCZJGiDnCtwC0XPxh6K0cijMTqWhWXvbZ9IULGrFsHErrQOHkQOrnfpc', '2018-11-22 09:21:57', '2018-11-22 09:44:04'),
 (2, 'rahim', 'rahim@gmail.com', NULL, '$2y$10$lx36/1zys9QtPvrlt8ARl.ynYxP6PMLiGLXoVaaEwh4Q8hFJXo6uC', 'Uw778pTPyw7hk6uJNxedUZJ1nSkw0litcBd23CRVdSbE3LAKRd1oWH47m2If', '2018-11-22 09:45:58', '2018-11-22 09:45:58'),
 (4, 'fatama', 'fatama@gmail.com', NULL, '$2y$10$nSgubeKq7LP855Hw9whdWeW.GLBZVvoTr/DfTMweUncvPxjGF.5BC', NULL, '2018-11-22 11:53:10', '2018-11-22 11:53:10');
 
@@ -442,7 +444,7 @@ ALTER TABLE `sites`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `user_site`
 --
