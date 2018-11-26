@@ -38,15 +38,37 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             
                         @else
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-                            <li><a class="nav-link" href="{{ route('permissions.index') }}">Manage Permission</a></li>
-                            <li><a class="nav-link" href="{{ route('sites.index') }}">Manage Site</a></li>
-                            <li><a class="nav-link" href="{{ route('domains.index') }}">Manage Domain</a></li>
+                           
+                            
 
-                            <li><a class="nav-link" href="{{ route('clusterInfos.index') }}">Manage ClusterInfo</a></li>
+                           
+
+
+
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sites Management <span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                 <li><a class="nav-link" href="{{ route('sites.index') }}">Manage Site</a></li>
+                                 <li><a class="nav-link" href="{{ route('domains.index') }}">Manage Domain</a></li>
+
+                                 <li><a class="nav-link" href="{{ route('clusterInfos.index') }}">Manage ClusterInfo</a></li>
+                              </ul>
+                            </li>
+
+
+
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Management <span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                 <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
+                                 <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
+                                 <li><a class="nav-link" href="{{ route('permissions.index') }}">Manage Permission</a></li>
+                              </ul>
+                            </li>
 
                             <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>
+
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
