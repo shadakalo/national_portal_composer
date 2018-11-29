@@ -67,6 +67,19 @@ INSERT INTO `domains` (`id`, `site_id`, `domain_url`, `domain_alias_bn`, `domain
 (4, 10, 'pm.gov.bd2', 'prime minister2', 'prime minister2', '2018-11-24 05:56:50', '2018-11-24 05:56:50'),
 (5, 11, 'pmo.gov.bd', 'pmo', 'pmo', '2018-11-24 05:57:27', '2018-11-24 05:57:27');
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `layers`
+--
+
+CREATE TABLE `layers` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `layer_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- --------------------------------------------------------
 
 --
@@ -84,19 +97,21 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2018_11_22_143632_create_permission_tables', 2),
-(4, '2018_11_22_143808_create_products_table', 2),
-(5, '2018_11_23_114238_create_sites_table', 3),
-(7, '2018_11_23_181430_create_user_site_table', 4),
-(8, '2018_11_24_053744_create_domains_table', 5),
-(9, '2018_11_24_093917_create_cluster_infos_table', 6),
-(10, '2016_06_01_000001_create_oauth_auth_codes_table', 7),
-(11, '2016_06_01_000002_create_oauth_access_tokens_table', 7),
-(12, '2016_06_01_000003_create_oauth_refresh_tokens_table', 7),
-(13, '2016_06_01_000004_create_oauth_clients_table', 7),
-(14, '2016_06_01_000005_create_oauth_personal_access_clients_table', 7);
+(15, '2014_10_12_000000_create_users_table', 1),
+(16, '2014_10_12_100000_create_password_resets_table', 1),
+(17, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
+(18, '2016_06_01_000002_create_oauth_access_tokens_table', 1),
+(19, '2016_06_01_000003_create_oauth_refresh_tokens_table', 1),
+(20, '2016_06_01_000004_create_oauth_clients_table', 1),
+(21, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
+(22, '2018_11_22_143632_create_permission_tables', 1),
+(23, '2018_11_22_143808_create_products_table', 1),
+(24, '2018_11_23_114238_create_sites_table', 1),
+(25, '2018_11_23_181430_create_user_site_table', 1),
+(26, '2018_11_24_053744_create_domains_table', 1),
+(27, '2018_11_24_093917_create_cluster_infos_table', 1),
+(28, '2018_11_27_043032_create_layers_table', 1),
+(29, '2018_11_29_052506_create_profiles_table', 1);
 
 -- --------------------------------------------------------
 
@@ -296,6 +311,20 @@ INSERT INTO `products` (`id`, `name`, `detail`, `created_at`, `updated_at`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `profiles`
+--
+
+CREATE TABLE `profiles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
@@ -378,6 +407,8 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `designation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(17) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -387,11 +418,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'karim', 'karim@gmail.com', NULL, '$2y$10$4Ts6o22AOiF36b5oisdGGO/Yqy03apWI/0D0gznFf1boMKIIhRzaq', '83fd6XSQvi5NdaY4WOTbv81yGI5AT0V4KwOZpom0KkWaJzxHMsQ7JQGLDG2P', '2018-11-22 09:21:57', '2018-11-22 09:44:04'),
-(2, 'rahim', 'rahim@gmail.com', NULL, '$2y$10$lx36/1zys9QtPvrlt8ARl.ynYxP6PMLiGLXoVaaEwh4Q8hFJXo6uC', 'Uw778pTPyw7hk6uJNxedUZJ1nSkw0litcBd23CRVdSbE3LAKRd1oWH47m2If', '2018-11-22 09:45:58', '2018-11-22 09:45:58'),
-(4, 'fatama', 'fatama@gmail.com', NULL, '$2y$10$nSgubeKq7LP855Hw9whdWeW.GLBZVvoTr/DfTMweUncvPxjGF.5BC', NULL, '2018-11-22 11:53:10', '2018-11-22 11:53:10'),
-(17, 'SUNIL CHANDRA', 'scandra36@gmail.com', NULL, '$2y$10$3mkWVE2fr0mUCk..tw381uPdqDMpAUVX2Xc2DPrth1h67nhO2c5DW', 'qQkr35Oo4oOqar9B5uoLbFoHeKCD6zWF8oruioTc6rV5GzYtZDwq3BR3oCHn', '2018-11-25 15:19:53', '2018-11-25 15:21:38');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`,`designation`,`mobile`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'karim', 'karim@gmail.com', NULL, '$2y$10$4Ts6o22AOiF36b5oisdGGO/Yqy03apWI/0D0gznFf1boMKIIhRzaq','programmer','123456', '83fd6XSQvi5NdaY4WOTbv81yGI5AT0V4KwOZpom0KkWaJzxHMsQ7JQGLDG2P', '2018-11-22 09:21:57', '2018-11-22 09:44:04'),
+(2, 'rahim', 'rahim@gmail.com', NULL, '$2y$10$lx36/1zys9QtPvrlt8ARl.ynYxP6PMLiGLXoVaaEwh4Q8hFJXo6uC','writer','12345666', 'Uw778pTPyw7hk6uJNxedUZJ1nSkw0litcBd23CRVdSbE3LAKRd1oWH47m2If', '2018-11-22 09:45:58', '2018-11-22 09:45:58'),
+(4, 'fatama', 'fatama@gmail.com', NULL, '$2y$10$nSgubeKq7LP855Hw9whdWeW.GLBZVvoTr/DfTMweUncvPxjGF.5BC','developer','12345611', NULL, '2018-11-22 11:53:10', '2018-11-22 11:53:10'),
+(17, 'SUNIL CHANDRA', 'scandra36@gmail.com', NULL, '$2y$10$3mkWVE2fr0mUCk..tw381uPdqDMpAUVX2Xc2DPrth1h67nhO2c5DW','developer','12342234456', 'qQkr35Oo4oOqar9B5uoLbFoHeKCD6zWF8oruioTc6rV5GzYtZDwq3BR3oCHn', '2018-11-25 15:19:53', '2018-11-25 15:21:38');
 
 -- --------------------------------------------------------
 
@@ -425,6 +456,13 @@ INSERT INTO `user_site` (`id`, `user_id`, `site_id`) VALUES
 ALTER TABLE `cluster_infos`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `cluster_infos_cluster_ip_unique` (`cluster_ip`);
+
+
+--
+-- Indexes for table `layers`
+--
+ALTER TABLE `layers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `domains`
@@ -505,7 +543,11 @@ ALTER TABLE `permissions`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
-
+--
+-- Indexes for table `profiles`
+--
+ALTER TABLE `profiles`
+  ADD PRIMARY KEY (`id`);
 --
 -- Indexes for table `roles`
 --
@@ -552,6 +594,12 @@ ALTER TABLE `cluster_infos`
 --
 ALTER TABLE `domains`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `layers`
+--
+ALTER TABLE `layers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -577,6 +625,11 @@ ALTER TABLE `permissions`
 --
 ALTER TABLE `products`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `profiles`
+--
+ALTER TABLE `profiles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `roles`
 --

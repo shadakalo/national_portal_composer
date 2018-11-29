@@ -54,6 +54,18 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
+            <strong>Designation: </strong>
+            {!! Form::text('designation', null, array('placeholder' => 'Designation','class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Mobile Number: </strong>
+            {!! Form::text('mobile', null, array('placeholder' => 'Mobile Number','class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
             <strong>Role:</strong>
             {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
         </div>

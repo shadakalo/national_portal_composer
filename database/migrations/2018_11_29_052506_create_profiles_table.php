@@ -4,9 +4,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateLayersTable.
+ * Class CreateProfilesTable.
  */
-class CreateLayersTable extends Migration
+class CreateProfilesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -15,10 +15,11 @@ class CreateLayersTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('layers', function(Blueprint $table) {
+		Schema::create('profiles', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('layer_name');
-
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->text('details');
             $table->timestamps();
 		});
 	}
@@ -30,6 +31,6 @@ class CreateLayersTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('layers');
+		Schema::drop('profiles');
 	}
 }

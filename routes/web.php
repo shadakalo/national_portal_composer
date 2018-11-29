@@ -29,4 +29,5 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     Route::resource('sites','SitesController');
     Route::resource('domains','DomainsController');
     Route::resource('clusterInfos','ClusterInfosController');
+    Route::resource('profiles','ProfilesController');
 });
