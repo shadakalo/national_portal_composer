@@ -39,4 +39,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Entities\Site','user_site', 'user_id', 'site_id');
     }
+
+    public function Profile(){
+        return $this->hasOne('App\Entities\Profile');
+    }
 }

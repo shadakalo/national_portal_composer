@@ -20,6 +20,10 @@ class Profile extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['first_name','last_name','details'];
+    protected $fillable = ['user_id','first_name','last_name','details','image'];
+
+    public function User(){
+        return $this->belongsTo('App\User');
+    }
 
 }

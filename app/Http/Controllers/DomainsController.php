@@ -73,6 +73,7 @@ class DomainsController extends Controller
     {
         $request = $this->service->store($request->all());
 
+
         session()->flash('success', [
             'success'   => $request['success'],
             'messages'  => $request['messages']

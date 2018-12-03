@@ -164,6 +164,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
 
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'FORM' => 'Collective\Html\FormFacade',
         'HTML' => 'Collective\Html\HtmlFacade',
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

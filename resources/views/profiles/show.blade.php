@@ -23,6 +23,8 @@
             {{ $profiles->last_name }}</br>
             <strong>Description:</strong>
             {{ $profiles->details }}</br>
+            <strong>Image:</strong>
+            <img src="/profile_image/{{ $profiles->image }}" style="width: 100px;height: 100px;"></br>
             
           
         </div>

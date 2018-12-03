@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Entities\Profile;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\ProfileCreateRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Repositories\ProfileRepository;
-
+use Image;
 use App\Services\ProfileService;
 
 /**
@@ -60,6 +63,8 @@ class ProfilesController extends Controller
         }
 
         return view('profiles.index', compact('profiles'));*/
+        //$user=Auth::user()->id;
+        //dd($user);
         $profiles = $this->service->index();
         return view('profiles.index', compact('profiles'));
     
@@ -68,9 +73,19 @@ class ProfilesController extends Controller
 
     public function create(){
         //$profiles = $this->profileRepository->selectBoxList();
+        $id=Auth::user()->id;
+        $user=Profile::find($id);
+        if($user !=null)
+        {
+            echo "user Exist";
 
-        
-        return view('profiles.create');
+        }
+        else
+        {
+            return view('profiles.create',compact('id'));
+        }
+
+
     }
 
     /**
@@ -111,9 +126,10 @@ class ProfilesController extends Controller
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }*/
-        //dd($request);
-        //exit();
+
         $request = $this->service->store($request->all());
+
+
 
         session()->flash('success', [
             'success'   => $request['success'],

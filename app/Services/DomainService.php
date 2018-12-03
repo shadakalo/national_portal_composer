@@ -31,6 +31,7 @@ class DomainService
 	{
 		try
 		{
+		    dd($data);
             
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
 			$domain = $this->repository->create($data);

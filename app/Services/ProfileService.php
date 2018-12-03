@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Entities\Profile;
 use App\Repositories\ProfileRepository;
 use App\Validators\ProfileValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
-
+use Image;
 
 class ProfileService
 {
@@ -31,7 +32,13 @@ class ProfileService
 	{
 		try
 		{
-            
+            if(!empty($data['image']))
+            {
+                $image=$data['image'];
+                $filename=time().'.'.$image->getClientOriginalExtension();
+                Image::make($image)->save(public_path('/profile_image/').$filename);
+                $data['image']=$filename;
+            }
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
 			$profile = $this->repository->create($data);
 			
@@ -63,6 +70,18 @@ class ProfileService
 	{
 		try
 		{
+
+            $profile = $this->repository->find($id);
+            //dd($profile);
+            if(!empty($data['image']))
+            {
+                unlink(public_path('/profile_image/').$profile->image);
+                $image=$data['image'];
+                $filename=time().'.'.$image->getClientOriginalExtension();
+                Image::make($image)->save(public_path('/profile_image/').$filename);
+                $data['image']=$filename;
+            }
+
 			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
 			$profile = $this->repository->update($data, $id);
 
@@ -89,8 +108,10 @@ class ProfileService
         
         try
 		{
+
 			
 			$profile = $this->repository->find($id);
+            unlink(public_path('/profile_image/').$profile->image);
 			$profile->delete();
            
 			return [

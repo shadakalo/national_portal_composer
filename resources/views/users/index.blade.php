@@ -41,6 +41,7 @@
             <td>{{ $user->email }}</td>
               <td>{{$user->designation}}</td>
               <td>{{$user->mobile}}</td>
+
             <td>
               @if(!empty($user->getRoleNames()))
                 @foreach($user->getRoleNames() as $v)

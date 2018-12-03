@@ -32,6 +32,7 @@
      <th>First Name</th>
      <th>Last Name</th>
      <th>Details</th>
+      <th>User Image</th>
      <th width="280px">Action</th>
   </tr>
     @foreach ($profiles as $key=>$profile)
@@ -40,6 +41,7 @@
         <td>{{ $profile->first_name }}</td>
         <td>{{ $profile->last_name }}</td>
         <td>{{ $profile->details }}</td>
+        <td><img src="/profile_image/{{$profile->image}}" style="height: 50px; width: 50px;"></td>
         
         <td>
             <a class="btn btn-info" href="{{ route('profiles.show',$profile->id) }}">Show</a>
