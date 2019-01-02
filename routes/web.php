@@ -30,4 +30,6 @@ Route::group(['prefix' => 'dashboard','middleware' => ['auth','prevent-back-hist
     Route::resource('domains','DomainsController');
     Route::resource('clusterInfos','ClusterInfosController');
     Route::resource('profiles','ProfilesController');
+    Route::get('themes/show','ThemeController@showTheme')->name('themes.showTheme');
+    Route::resource('themes','ThemeController');
 });

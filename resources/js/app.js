@@ -8,6 +8,20 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(BootstrapVue);
+import axios from 'axios';
+Vue.prototype.$http = axios;
+
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon'
+import 'vue-awesome/icons/flag'
+
+Vue.component('v-icon', Icon)
+
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -17,7 +31,9 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('create', require('./components/Create.vue'));
+Vue.component('show', require('./components/Show.vue'));
+
 
 // const files = require.context('./', true, /\.vue$/i)
 
@@ -31,6 +47,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+ 
+
 const app = new Vue({
     el: '#app'
 });
+
+
+
+
